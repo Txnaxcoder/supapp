@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excel to Firebase</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+</head>
+<body>
+  <h1>Upload Excel File</h1>
+  <input type="file" id="excelFile" accept=".xls,.xlsx" />
+  <button id="uploadBtn">Upload to Firebase</button>
+  <script>
+    // Replace the following configuration with your own Firebase project details
+    const firebaseConfig = {
+      apiKey: "AIzaSyCx3-oXPaZUJkXFgJK19ybU8Qvst8SmvGE",
+      authDomain: "supra-ledger.firebaseapp.com",
+      databaseURL: "https://supra-ledger-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "supra-ledger",
+      storageBucket: "supra-ledger.appspot.com",
+      messagingSenderId: "756696464567",
+      appId: "1:756696464567:web:86b6f5fa09f38ba6dba132",
+      measurementId: "G-PF888BYJDX"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const fileInput = document.getElementById("excelFile");
+    const uploadBtn = document.getElementById("uploadBtn");
+
+    uploadBtn.addEventListener("click", () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        alert("Please select an Excel file");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+
+        workbook.SheetNames.forEach((sheetName) => {
+          const sheetData = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+
+          sheetData.forEach((row) => {
+            if (row.DATE && row["BILL NO"] && row["CUSTOMER NAME"] && row.TOTAL) {
+              const newRow = {
+                name: row["CUSTOMER NAME"],
+                date: row.DATE,
+                invoiceNumber: row["BILL NO"],
+                amount: row.TOTAL
+              };
+
+              db.ref('bills').push(newRow)
+                .then(() => {
+                  console.log("Data successfully saved.");
+                })
+                .catch((error) => {
+                  console.error("Error saving data: ", error);
+                });
+            }
+          });
+        });
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  </script>
+</body>
+</html>

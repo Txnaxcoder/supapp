@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Ledger</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <header>
+        <header class="text-gray-400 bg-gray-900 body-font">
+            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+              <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
+                <a class="mr-5 hover:text-white" href="raise.html" >Add Bill</a>
+                <a class="mr-5 hover:text-white"href="add_payment.html">Add Payment</a>
+                <a class="mr-5 hover:text-white" href="view_bills.html">View Bills</a>
+              </nav>
+              <a class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-white lg:items-center lg:justify-center mb-4 md:mb-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="ml-3 text-xl xl:block lg:hidden">Supra Ledger</span>
+              </a>
+              <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
+               
+              </div>
+            </div>
+          </header>
+          
+
+    <form id="add-bill-form">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        
+        <label for="date">Date:</label>
+        <input type="date" id="date" required>
+        
+        <label for="invoice_number">Invoice Number:</label>
+        <input type="text" id="invoice_number" required>
+        
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" step="0.01" required>
+        
+        <button type="submit" id="btn">Add Bill</button>
+    </form>
+
+    <script src="script.js"></script>
+    <script src="menu.js"></script>
+    <style>
+      /* Add to style.css */
+
+/* Style the body */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url(./images/endless-constellation.svg);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Style the form */
+#add-bill-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+}
+
+/* Style the labels */
+#add-bill-form label {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Style the input fields */
+#add-bill-form input {
+  width: 100%;
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style the button */
+button[type="submit"] {
+  font-size: 1rem;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+
+    </style>
+</body>
+</html>

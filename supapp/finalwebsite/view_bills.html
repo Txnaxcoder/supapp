@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Bills</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header class="text-gray-400 bg-gray-900 body-font">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <nav class="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
+            <a class="mr-5 hover:text-white" href="raise.html" >Add Bill</a>
+            <a class="mr-5 hover:text-white"href="add_payment.html">Add Payment</a>
+            <a class="mr-5 hover:text-white" href="view_bills.html">View Bills</a>
+          </nav>
+          <a class="flex order-first lg:order-none lg:w-1/5 title-font font-medium items-center text-white lg:items-center lg:justify-center mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-500 rounded-full" viewBox="0 0 24 24">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+            </svg>
+            <span class="ml-3 text-xl xl:block lg:hidden">Supra Ledger</span>
+          </a>
+          <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
+            
+          </div>
+        </div>
+      </header>
+      
+      
+      
+      
+<div class="table-container">
+    <table id="bills-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Invoice Number</th>
+                <th>Amount</th>
+                <!-- Add the 'Payments' and 'Amount Due' headers in the thead section -->
+<th>Payments</th>
+<th>Amount Due/TDS</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Bills data will be added here -->
+        </tbody>
+    </table>
+</div>
+
+    <script src="script.js"></script>
+    <script src="view.js"></script>
+    <script src="menu.js"></script>
+    <style>
+      /* Add to style.css */
+
+/* Background effect */
+body {
+  background: #f2f2f2;
+  background-image: radial-gradient(white 5%, transparent 5%),
+                    radial-gradient(white 5%, transparent 5%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+/* Header */
+header {
+  background-color: #2d3748;
+  padding: 1rem;
+}
+
+header a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+header a:hover {
+  color: #fbbf24;
+}
+
+header svg {
+  margin-right: 0.5rem;
+}
+
+header span {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Bills Table */
+.table-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+#bills-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+#bills-table th,
+#bills-table td {
+  padding: 0.5rem;
+  border: 2px solid #e2e8f0;
+  text-align: center;
+}
+
+#bills-table th {
+  background-color: #2d3748;
+  color: #fff;
+}
+
+#bills-table tr:nth-child(even) {
+  background-color: #edf2f7;
+}
+
+#bills-table tr:hover {
+  background-color: #cbd5e0;
+}
+
+/* Add Payment Form */
+#add-payment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#add-payment-form label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+#add-payment-form input[type="number"] {
+  padding: 0.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.25rem;
+  width: 100%;
+  max-width: 20rem;
+  margin-bottom: 1rem;
+}
+
+#add-payment-form button {
+  padding: 0.5rem 1rem;
+  background-color: #fbbf24;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+#add-payment-form button:hover {
+  background-color: #f6ad55;
+}
+
+    </style>
+</body>
+</html>
+
