@@ -33,7 +33,52 @@ addBillForm.addEventListener('submit', async (e) => {
     });
 
   
+
+  
       
 
     addBillForm.reset();
 });
+
+
+// Create a new instance of SpeechRecognition
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+
+recognition.continuous = true; 
+
+// Start recognition on button click
+document.getElementById('voice-btn').addEventListener('click', () => {
+    recognition.start();
+    console.log('start')
+});
+
+// Listen for the 'result' event, which is fired when some speech has been recognized
+recognition.addEventListener('result', (e) => {
+    // e.results[0][0].transcript contains the recognized text
+    let voiceInput = e.results[0][0].transcript;
+
+    console.log(voiceInput)
+    
+    // Here, you can process the 'voiceInput' variable and save it to your Firebase database
+    // For example, if you're expecting the format "name and invoiceNumber and amount and date"
+    let [name, spokenDate, invoiceNumber, amount] = voiceInput.split(' and ');
+
+    // Parse the spoken date
+    let date = new Date(spokenDate);
+
+    
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+
+
+    let formattedDate = date.toISOString().split('T')[0];  // Convert to YYYY-MM-DD format
+
+    console.log(name, invoiceNumber, amount, formattedDate);
+    db.ref('bills').push({
+        name,
+        invoiceNumber,
+        amount: parseFloat(amount),  // Parse amount to a float
+        date: formattedDate  // Add parsed date
+    });
+});
+
